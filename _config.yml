@@ -1,0 +1,33 @@
+permalink:           pretty
+
+# Setup
+title:               'JekyllBook'
+tagline:             'A Jekyll theme'
+url:                 https://ebetica.github.io/jekyllbook
+baseurl:             ''
+
+# About/contact
+author:
+  name:              Zeming Lin
+  url:               https://twitter.com/ebetica
+
+# Custom vars
+version:             1.0.0
+
+multilingual:        false
+src:                 "."
+default_theme:       "ayu"
+
+# For Maths
+markdown:            kramdown
+
+
+# Chapter Configuration (up to a 2 level nested list)
+
+chapters:
+  - path: chapters/01.md
+    sections:
+      - path: chapters/01-1.md
+      - path: chapters/01-2.md
+  - path: chapters/02.md
+
