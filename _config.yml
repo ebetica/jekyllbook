@@ -3,7 +3,7 @@ permalink:           pretty
 # Setup
 title:               'JekyllBook'
 tagline:             'A Jekyll theme'
-url:                 https://ebetica.github.io/jekyllbook
+url:                 https://github.com/ebetica/jekyllbook
 baseurl:             '/jekyllbook'
 
 # About/contact
