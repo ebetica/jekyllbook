@@ -113,12 +113,16 @@
               {% assign node = site.pages | where: "path", chapter.path | first %}
               {% assign arraypath = chapter.path | split: 'DONOTSPLIT!#@$' %}
 			  {% assign pagelist = pagelist | concat: arraypath %}
+			  {% assign chapteridx = forloop.index %}
               {% if page.url == node.url %}
                 {% assign current_pagelist_index = pagelist | size %}
-                <li class="expanded "><a class="active" href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a></li>
+                {% assign active = "active" %}
               {% else %}
-                <li class="expanded"><a href="{{ site.baseurl }}{{ node.url }}">{{ node.title }}</a></li>
+                {% assign active = "" %}
               {% endif %}
+              <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ node.url }}">
+                  <strong aria-hidden="true">{{ chapteridx }}.</strong> {{ node.title }}
+              </a></li>
               {% if chapter.sections %}
               	<ol class="section">
                 {% for section in chapter.sections %}
@@ -127,10 +131,13 @@
     			  {% assign pagelist = pagelist | concat: arraypath %}
                   {% if page.url == snode.url %}
                     {% assign current_pagelist_index = pagelist | size %}
-                    <li class="expanded "><a class="active" href="{{ site.baseurl }}{{ snode.url }}">{{ snode.title }}</a></li>
+                    {% assign active = "active" %}
                   {% else %}
-                    <li class="expanded"><a href="{{ site.baseurl }}{{ snode.url }}">{{ snode.title }}</a></li>
+                    {% assign active = "" %}
                   {% endif %}
+                  <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ snode.url }}">
+                      <strong aria-hidden="true">{{ chapteridx }}.{{ forloop.index }}.</strong> {{ snode.title }}
+                  </a></li>
 				{% endfor %}
               	</ol>
               {% endif %}
