@@ -4,7 +4,7 @@ permalink:           pretty
 title:               'JekyllBook'
 tagline:             'A Jekyll theme'
 url:                 https://ebetica.github.io/jekyllbook
-baseurl:             ''
+baseurl:             '/jekyllbook'
 
 # About/contact
 author:
