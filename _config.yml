@@ -3,13 +3,15 @@ permalink:           pretty
 # Setup
 title:               'JekyllBook'
 tagline:             'A Jekyll theme'
-url:                 https://github.com/ebetica/jekyllbook
+url:                 https://ebetica.github.io/jekyllbook/
 baseurl:             '/jekyllbook'
 
 # About/contact
 author:
   name:              Zeming Lin
   url:               https://twitter.com/ebetica
+github:
+  repo:              https://github.com/ebetica/jekyllbook/
 
 # Custom vars
 version:             1.0.0

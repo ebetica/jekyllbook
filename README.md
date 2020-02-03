@@ -6,7 +6,7 @@ title: JekyllBook
 JekyllBook is a Jekyll theme based on the awesome theme of the Rust book built by [mdbook](https://github.com/rust-lang/mdBook).
 If you're reading the README.md on Github, [click here](https://ebetica.github.io/jekyllbook/) to visit the rendered version.
 
-![]({{ site.url }}/static/preview.png)
+![]({{ site.baseurl }}/static/preview.png)
 
 ## Usage
 
