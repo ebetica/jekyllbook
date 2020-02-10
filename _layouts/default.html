@@ -127,7 +127,7 @@
                   <strong aria-hidden="true">{{ chapteridx }}.</strong> {{ node.title }}
               </a></li>
               {% if chapter.sections %}
-              	<ol class="section">
+              	<li><ol class="section">
                 {% for section in chapter.sections %}
                   {% assign snode = site.pages | where: "path", section.path | first %}
                   {% assign arraypath = section.path | split: 'DONOTSPLIT!#@$' %}
@@ -142,7 +142,7 @@
                       <strong aria-hidden="true">{{ chapteridx }}.{{ forloop.index }}.</strong> {{ snode.title }}
                   </a></li>
 				{% endfor %}
-              	</ol>
+              	</ol></li>
               {% endif %}
             {% endfor %}
 
