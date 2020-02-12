@@ -99,24 +99,39 @@
             <ol class="chapter">
             {% assign base_url = site.baseurl | append: "/" %}
             {% if page.url == base_url %}
-                <li><a class="active" href="{{ site.baseurl }}/">Home</a></li>
+                <li><a class="active" href="{{ site.baseurl }}/">{{ site.homepage_title }}</a></li>
             {% else %}
-                <li><a href="{{ site.baseurl }}/">Home</a></li>
+                <li><a href="{{ site.baseurl }}/">{{ site.homepage_title }}</a></li>
             {% endif %}
 
             {% comment %}
-            	Hack to get a single element array...
+              Hack to get a single element array...
             {% endcomment %}
-			{% assign pagelist = base_url | split: 'DONOTSPLIT!#@$' %}
+            {% assign pagelist = base_url | split: 'DONOTSPLIT!#@$' %}
             {% assign arraypath = base_url | split: 'DONOTSPLIT!#@$' %}
-		    {% assign pagelist = pagelist | concat: arraypath %}
-		    {% assign current_pagelist_index = pagelist | size %}
+            {% assign pagelist = pagelist | concat: arraypath %}
+            {% assign current_pagelist_index = pagelist | size %}
+
+            {% for chapter in site.prologues %}
+              {% assign node = site.pages | where: "path", chapter.path | first %}
+              {% assign arraypath = chapter.path | split: 'DONOTSPLIT!#@$' %}
+              {% assign pagelist = pagelist | concat: arraypath %}
+              {% if page.url == node.url %}
+                {% assign current_pagelist_index = pagelist | size %}
+                {% assign active = "active" %}
+              {% else %}
+                {% assign active = "" %}
+              {% endif %}
+              <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ node.url }}">
+                {{ node.title }}
+              </a></li>
+            {% endfor %}
 
             {% for chapter in site.chapters %}
               {% assign node = site.pages | where: "path", chapter.path | first %}
               {% assign arraypath = chapter.path | split: 'DONOTSPLIT!#@$' %}
-			  {% assign pagelist = pagelist | concat: arraypath %}
-			  {% assign chapteridx = forloop.index %}
+              {% assign pagelist = pagelist | concat: arraypath %}
+              {% assign chapteridx = forloop.index %}
               {% if page.url == node.url %}
                 {% assign current_pagelist_index = pagelist | size %}
                 {% assign active = "active" %}
@@ -131,7 +146,7 @@
                 {% for section in chapter.sections %}
                   {% assign snode = site.pages | where: "path", section.path | first %}
                   {% assign arraypath = section.path | split: 'DONOTSPLIT!#@$' %}
-    			  {% assign pagelist = pagelist | concat: arraypath %}
+                  {% assign pagelist = pagelist | concat: arraypath %}
                   {% if page.url == snode.url %}
                     {% assign current_pagelist_index = pagelist | size %}
                     {% assign active = "active" %}
@@ -141,19 +156,34 @@
                   <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ snode.url }}">
                       <strong aria-hidden="true">{{ chapteridx }}.{{ forloop.index }}.</strong> {{ snode.title }}
                   </a></li>
-				{% endfor %}
+                  {% endfor %}
               	</ol></li>
               {% endif %}
             {% endfor %}
 
+            {% for chapter in site.epilogues %}
+              {% assign node = site.pages | where: "path", chapter.path | first %}
+              {% assign arraypath = chapter.path | split: 'DONOTSPLIT!#@$' %}
+              {% assign pagelist = pagelist | concat: arraypath %}
+              {% if page.url == node.url %}
+                {% assign current_pagelist_index = pagelist | size %}
+                {% assign active = "active" %}
+              {% else %}
+                {% assign active = "" %}
+              {% endif %}
+              <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ node.url }}">
+                {{ node.title }}
+              </a></li>
+            {% endfor %}
+
             {% assign arraypath = pagelist | last | split: 'DONOTSPLIT!#@$' %}
-    		{% assign pagelist = pagelist | concat: arraypath %}
+            {% assign pagelist = pagelist | concat: arraypath %}
 
             {% comment %}
-            	Now we can compute the next and previous page!
+              Now we can compute the next and previous page!
             {% endcomment %}
 
-			{% assign prev_pagelist_index = current_pagelist_index | minus: 2 %}
+            {% assign prev_pagelist_index = current_pagelist_index | minus: 2 %}
             {% assign page_next_path = pagelist[current_pagelist_index] %}
             {% assign page_prev_path = pagelist[prev_pagelist_index] %}
             {% assign page_next = site.pages | where: "path", page_next_path | first %}
