@@ -125,6 +125,24 @@
               <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ node.url }}">
                 {{ node.title }}
               </a></li>
+              {% if chapter.sections %}
+              	<li><ol class="section">
+                {% for section in chapter.sections %}
+                  {% assign snode = site.pages | where: "path", section.path | first %}
+                  {% assign arraypath = section.path | split: 'DONOTSPLIT!#@$' %}
+                  {% assign pagelist = pagelist | concat: arraypath %}
+                  {% if page.url == snode.url %}
+                    {% assign current_pagelist_index = pagelist | size %}
+                    {% assign active = "active" %}
+                  {% else %}
+                    {% assign active = "" %}
+                  {% endif %}
+                  <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ snode.url }}">
+                      {{ snode.title }}
+                  </a></li>
+                  {% endfor %}
+              	</ol></li>
+              {% endif %}
             {% endfor %}
 
             {% for chapter in site.chapters %}
@@ -174,6 +192,24 @@
               <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ node.url }}">
                 {{ node.title }}
               </a></li>
+              {% if chapter.sections %}
+              	<li><ol class="section">
+                {% for section in chapter.sections %}
+                  {% assign snode = site.pages | where: "path", section.path | first %}
+                  {% assign arraypath = section.path | split: 'DONOTSPLIT!#@$' %}
+                  {% assign pagelist = pagelist | concat: arraypath %}
+                  {% if page.url == snode.url %}
+                    {% assign current_pagelist_index = pagelist | size %}
+                    {% assign active = "active" %}
+                  {% else %}
+                    {% assign active = "" %}
+                  {% endif %}
+                  <li class="expanded "><a class="{{ active }}" href="{{ site.baseurl }}{{ snode.url }}">
+                      {{ snode.title }}
+                  </a></li>
+                  {% endfor %}
+              	</ol></li>
+              {% endif %}
             {% endfor %}
 
             {% assign arraypath = pagelist | last | split: 'DONOTSPLIT!#@$' %}
