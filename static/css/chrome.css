@@ -443,7 +443,7 @@ ul#searchresults span.teaser em {
 
 /* Theme Menu Popup */
 
-.theme-popup {
+.button-popup {
     position: absolute;
     left: 10px;
     top: var(--menu-bar-height);
@@ -451,17 +451,17 @@ ul#searchresults span.teaser em {
     border-radius: 4px;
     font-size: 0.7em;
     color: var(--fg);
-    background: var(--theme-popup-bg);
-    border: 1px solid var(--theme-popup-border);
+    background: var(--button-popup-bg);
+    border: 1px solid var(--button-popup-border);
     margin: 0;
     padding: 0;
     list-style: none;
     display: none;
 }
-.theme-popup .default {
+.button-popup .default {
     color: var(--icons);
 }
-.theme-popup .theme {
+.button-popup .theme {
     width: 100%;
     border: 0;
     margin: 0;
@@ -474,11 +474,18 @@ ul#searchresults span.teaser em {
     background: inherit;
     font-size: inherit;
 }
-.theme-popup .theme:hover {
+.button-popup .lang-selector {
+    text-decoration: none;
+    font-size: 1.2em;
+}
+.button-popup .theme:hover {
     background-color: var(--theme-hover);
 }
-.theme-popup .theme:hover:first-child,
-.theme-popup .theme:hover:last-child {
+.button-popup .theme:hover:first-child,
+.button-popup .theme:hover:last-child {
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
+}
+.button-popup .theme .lang-selector {
+    text-decoration: none;
 }

@@ -1,12 +1,19 @@
 <!DOCTYPE html>
+{% if page.lang %}
+    {% assign base_url = site.baseurl | append: "/" | append: page.lang %}
+	{% assign lang = site[page.lang] %}
+{% else %}
+    {% assign base_url = site.baseurl %}
+	{% assign lang = site %}
+{% endif %}
 <html lang="en" class="sidebar-visible no-js">
     <head>
       <meta charset="UTF-8">
         <title>
-          {% if page.title == "Home" %}
-            {{ site.title }} &middot; {{ site.tagline }}
+          {% if page.url == base_url %}
+            {{ lang.title }} &middot; {{ lang.tagline }}
           {% else %}
-            {{ page.title }} &middot; {{ site.title }}
+            {{ page.title }} &middot; {{ lang.title }}
           {% endif %}
         </title>
 
@@ -97,22 +104,21 @@
             {% endcomment %}
 
             <ol class="chapter">
-            {% assign base_url = site.baseurl | append: "/" %}
             {% if page.url == base_url %}
-                <li><a class="active" href="{{ site.baseurl }}/">{{ site.homepage_title }}</a></li>
+                <li><a class="active" href="{{ base_url }}/">{{ site.homepage_title }}</a></li>
             {% else %}
-                <li><a href="{{ site.baseurl }}/">{{ site.homepage_title }}</a></li>
+                <li><a href="{{ base_url }}/">{{ site.homepage_title }}</a></li>
             {% endif %}
 
             {% comment %}
               Hack to get a single element array...
             {% endcomment %}
-            {% assign pagelist = base_url | split: 'DONOTSPLIT!#@$' %}
-            {% assign arraypath = base_url | split: 'DONOTSPLIT!#@$' %}
+            {% assign pagelist = base_url | append: '/' | split: 'DONOTSPLIT!#@$' %}
+            {% assign arraypath = base_url | append: '/' | split: 'DONOTSPLIT!#@$' %}
             {% assign pagelist = pagelist | concat: arraypath %}
             {% assign current_pagelist_index = pagelist | size %}
 
-            {% for chapter in site.prologues %}
+            {% for chapter in lang.prologues %}
               {% assign node = site.pages | where: "path", chapter.path | first %}
               {% assign arraypath = chapter.path | split: 'DONOTSPLIT!#@$' %}
               {% assign pagelist = pagelist | concat: arraypath %}
@@ -145,7 +151,7 @@
               {% endif %}
             {% endfor %}
 
-            {% for chapter in site.chapters %}
+            {% for chapter in lang.chapters %}
               {% assign node = site.pages | where: "path", chapter.path | first %}
               {% assign arraypath = chapter.path | split: 'DONOTSPLIT!#@$' %}
               {% assign pagelist = pagelist | concat: arraypath %}
@@ -179,7 +185,7 @@
               {% endif %}
             {% endfor %}
 
-            {% for chapter in site.epilogues %}
+            {% for chapter in lang.epilogues %}
               {% assign node = site.pages | where: "path", chapter.path | first %}
               {% assign arraypath = chapter.path | split: 'DONOTSPLIT!#@$' %}
               {% assign pagelist = pagelist | concat: arraypath %}
@@ -249,8 +255,11 @@
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
+                        <button id="lang-toggle" class="icon-button" type="button" title="Change language" aria-label="Change language" aria-haspopup="true" aria-expanded="false" aria-controls="lang-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
                     </div>
-                    <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                    <ul id="theme-list" class="button-popup theme-popup" aria-label="Themes" role="menu">
                         <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                         <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                         <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -258,10 +267,31 @@
                         <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
                     </ul>
 
+                    <ul id="lang-list" class="button-popup lang-popup" aria-label="Languages" role="menu">
+                        {% assign pages = site.pages | where:"lang-ref", page.lang-ref | sort: 'lang' %}
+                        {% if pages.size > 1 and page.lang-ref %}
+                          {% for p in pages %}
+                            {% if p.lang %}
+                              {% assign pagelang = p.lang %}
+                            {% else %}
+                              {% assign pagelang = site.default_lang %}
+                            {% endif %}
+                            <li role="none"><button onclick="window.location='{{ site.baseurl }}{{ p.url }}';" role="menuitem" class="lang-selector lang-is-{{ pagelang }} theme"> {{pagelang}} </li>
+                          {% endfor %}
+                        {% else %}
+                            {% if page.lang %}
+                              {% assign pagelang = page.lang %}
+                            {% else %}
+                              {% assign pagelang = site.default_lang %}
+                            {% endif %}
+                            <li role="none"><button onclick="window.location='{{ page.url }}';" role="menuitem" class="lang-selector lang-is-{{ pagelang }} theme"> {{pagelang}} </li>
+                        {% endif %}
+                    </ul>
+
                     <h1 class="menu-title">{{ site.title }}</h1>
 
                     <div class="right-buttons">
-                        <a href="{{ site.git_repository_url}}" title="Git repository" aria-label="Git repository">
+                        <a href="{{ site.git_repository_url }}" title="Git repository" aria-label="Git repository">
                             <!-- <i id="git-repository-button" class="fa {{ site.git_repository_icon }}"></i> -->
                             <i id="git-repository-button"></i>
                         </a>

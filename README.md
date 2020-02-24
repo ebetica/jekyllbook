@@ -1,6 +1,7 @@
 ---
 layout: default
 title: JekyllBook
+lang-ref: home
 ---
 
 JekyllBook is a Jekyll theme based on the awesome theme of the Rust book built by [mdbook](https://github.com/rust-lang/mdBook).
