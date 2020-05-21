@@ -329,6 +329,21 @@ function playpen_text(playpen) {
         }
       }
     }
+    var faglobe = document.getElementsByClassName('flag-placeholder')[0];
+    for (var ci = 0; ci < faglobe.classList.length; ci++) {
+      var cls = faglobe.classList[ci];
+      if (cls.substr(0, 8) == 'lang-is-') {
+        var lang_id = cls.substr(8);
+        console.log(lang_id);
+        if (lang_id in lang2name) {
+          var emoji = country2emoji[lang2country[lang_id] || ''] || '';
+          emoji = emoji == '' ? '' : (' ' + emoji);
+          faglobe.innerHTML = emoji;
+        } else {
+          faglobe.classList.add('fa-globe');
+        }
+      }
+    }
 })();
 
 (function themes() {

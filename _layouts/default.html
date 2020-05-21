@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 {% if page.lang %}
-    {% assign base_url = site.baseurl | append: "/" | append: page.lang | append: "/" %}
-	{% assign lang = site[page.lang] %}
+  {% assign base_url = site.baseurl | append: "/" | append: page.lang | append: "/" %}
+  {% assign lang = site[page.lang] %}
+  {% assign thislang = page.lang %}
 {% else %}
-    {% assign base_url = site.baseurl | append: "/" %}
-	{% assign lang = site %}
+  {% assign base_url = site.baseurl | append: "/" %}
+  {% assign lang = site %}
+  {% assign thislang = "en" %}
 {% endif %}
-<html lang="en" class="sidebar-visible no-js">
+<html lang="{{ thislang }}" class="sidebar-visible no-js">
     <head>
       <meta charset="UTF-8">
         <title>
@@ -257,7 +259,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <button id="lang-toggle" class="icon-button" type="button" title="Change language" aria-label="Change language" aria-haspopup="true" aria-expanded="false" aria-controls="lang-list">
-                            <i class="fa fa-globe"></i>
+                            <i class="fa flag-placeholder lang-is-{{ thislang }}"></i>
                         </button>
                     </div>
                     <ul id="theme-list" class="button-popup theme-popup" aria-label="Themes" role="menu">
