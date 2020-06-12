@@ -329,18 +329,21 @@ function playpen_text(playpen) {
         }
       }
     }
-    var faglobe = document.getElementsByClassName('flag-placeholder')[0];
-    for (var ci = 0; ci < faglobe.classList.length; ci++) {
-      var cls = faglobe.classList[ci];
-      if (cls.substr(0, 8) == 'lang-is-') {
-        var lang_id = cls.substr(8);
-        console.log(lang_id);
-        if (lang_id in lang2name) {
-          var emoji = country2emoji[lang2country[lang_id] || ''] || '';
-          emoji = emoji == '' ? '' : (' ' + emoji);
-          faglobe.innerHTML = emoji;
-        } else {
-          faglobe.classList.add('fa-globe');
+    var placeholders = document.getElementsByClassName('flag-placeholder');
+    for (var pi = 0; pi < placeholders.length; pi++) {
+      var placeholder = placeholders[pi];
+      for (var ci = 0; ci < placeholder.classList.length; ci++) {
+        var cls = placeholder.classList[ci];
+        if (cls.substr(0, 8) == 'lang-is-') {
+          var lang_id = cls.substr(8);
+          console.log(lang_id);
+          if (lang_id in lang2name) {
+            var emoji = country2emoji[lang2country[lang_id] || ''] || '';
+            emoji = emoji == '' ? '' : (' ' + emoji);
+            placeholder.innerHTML = emoji;
+          } else {
+            placeholder.classList.add('fa-globe');
+          }
         }
       }
     }
