@@ -8,6 +8,12 @@
   {% assign lang = site %}
   {% assign thislang = "en" %}
 {% endif %}
+
+{% if thislang == "ar" %}
+  {% assign dir = "dir = 'rtl'" %}
+{% else %}
+  {% assign dir = "" %}
+{% endif %}
 <html lang="{{ thislang }}" class="sidebar-visible no-js">
     <head>
       <meta charset="UTF-8">
@@ -98,7 +104,7 @@
         html.classList.add("sidebar-" + sidebar);
     </script>
 
-    <nav id="sidebar" class="sidebar" aria-label="Table of contents" aria-hidden="false">
+    <nav id="sidebar" class="sidebar" aria-label="Table of contents" aria-hidden="false" {{dir}}>
         <div id="sidebar-scrollbox" class="sidebar-scrollbox">
 
             {% comment %}
@@ -315,7 +321,7 @@
 
             <div id="content" class="content">
                 <main>
-                    <div class="page">
+                    <div class="page" {{dir}}>
                       <h1 class="page-title">{{ page.title }}</h1>
                       {{ content }}
                     </div>
