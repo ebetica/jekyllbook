@@ -287,7 +287,7 @@
                             {% else %}
                               {% assign pagelang = site.default_lang %}
                             {% endif %}
-                            <li role="none"><button onclick="window.location='{{ site.baseurl }}{{ p.url }}';" role="menuitem" class="lang-selector lang-is-{{ pagelang }} theme"> {{pagelang}} </li>
+                            <li role="none"><button onclick="window.location='{{ site.baseurl }}{{ p.url }}';" role="menuitem" class="lang-selector lang-is-{{ pagelang }} theme"> {{pagelang}} </button></li>
                           {% endfor %}
                         {% else %}
                             {% if page.lang %}
@@ -295,7 +295,7 @@
                             {% else %}
                               {% assign pagelang = site.default_lang %}
                             {% endif %}
-                            <li role="none"><button onclick="window.location='{{ page.url }}';" role="menuitem" class="lang-selector lang-is-{{ pagelang }} theme"> {{pagelang}} </li>
+                            <li role="none"><button onclick="window.location='{{ page.url }}';" role="menuitem" class="lang-selector lang-is-{{ pagelang }} theme"> {{pagelang}} </button></li>
                         {% endif %}
                     </ul>
 
