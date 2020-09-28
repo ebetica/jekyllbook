@@ -157,3 +157,8 @@ blockquote {
 .tooltipped .tooltiptext {
     visibility: visible;
 }
+
+.katex > * {
+    unicode-bidi: bidi-override !important;
+    direction: ltr !important;
+}
